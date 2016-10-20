@@ -1,12 +1,10 @@
 /**
- * angular-timer - v1.3.4 - 2016-05-01 9:52 PM
+ * angular-timer - v1.3.5 - 2016-10-20 4:07 PM
  * https://github.com/siddii/angular-timer
  *
- * Copyright (c) 2016 Siddique Hameed
+ * Copyright (c) 2016 Adrian Wardell
  * Licensed MIT <https://github.com/siddii/angular-timer/blob/master/LICENSE.txt>
  */
-var humanizeDuration = require("humanize-duration");
-var moment = require("moment");
 var timerModule = angular.module('timer', [])
   .directive('timer', ['$compile', function ($compile) {
     return  {
@@ -112,9 +110,16 @@ var timerModule = angular.module('timer', [])
         }
 
         $scope.$watch('startTimeAttr', function(newValue, oldValue) {
-          if (newValue !== oldValue && $scope.isRunning) {
-            $scope.start();
-          }
+           if (newValue !== oldValue) {
+             if ($scope.isRunning) {
+              $scope.start();
+             } else {
+               $scope.startTime = $scope.startTimeAttr ? moment($scope.startTimeAttr) : moment();
+               $scope.endTime = $scope.endTimeAttr ? moment($scope.endTimeAttr) : null;
+               tick();
+               $scope.clear();
+             }
+           }
         });
 
         $scope.$watch('endTimeAttr', function(newValue, oldValue) {
