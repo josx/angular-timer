@@ -105,7 +105,7 @@ var timerModule = angular.module('timer', [])
         $scope.$watch('startTimeAttr', function(newValue, oldValue) {
            if (newValue !== oldValue) {
              if ($scope.isRunning) {
-              $scope.start();		              $scope.start();
+              $scope.start();
              } else {
                $scope.startTime = $scope.startTimeAttr ? moment($scope.startTimeAttr) : moment();
                $scope.endTime = $scope.endTimeAttr ? moment($scope.endTimeAttr) : null;
